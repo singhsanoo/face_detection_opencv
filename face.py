@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+import winsound
 
 # multiple cascades: https://github.com/Itseez/opencv/tree/master/data/haarcascades
 
@@ -21,6 +22,9 @@ while 1:
         roi_color = img[y:y+h, x:x+w]
         
         eyes = eye_cascade.detectMultiScale(roi_gray)
+        if len(eyes) == 0:
+            winsound.PlaySound('sample.wav', winsound.SND_FILENAME|winsound.SND_NOWAIT|winsound.SND_LOOP)
+
         for (ex,ey,ew,eh) in eyes:
             cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
 
